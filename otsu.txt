@@ -1,0 +1,31 @@
+Otsu's thresholding is a widely used image thresholding technique that can be applied after preprocessing steps like Bottom-Hat filtering. It automatically calculates an optimal threshold value to binarize an image, effectively separating objects of interest (e.g., characters on a license plate) from the background.
+
+Here's how Otsu's thresholding works:
+
+It calculates the variance of pixel intensities for all possible threshold values from 0 to 255 (for an 8-bit grayscale image). The variance is computed for both foreground and background regions.
+
+Otsu's method aims to find the threshold that minimizes the weighted sum of variances within the two regions (foreground and background). This threshold value maximizes the between-class variance and minimizes the within-class variance.
+
+The threshold determined by Otsu's method is used to convert the grayscale image into a binary image, where pixel values below the threshold are assigned one value (e.g., 0 for black), and values above the threshold are assigned another value (e.g., 255 for white).
+
+Here's an example of how to apply Otsu's thresholding using OpenCV:
+
+python
+Copy code
+import cv2
+
+# Load the image
+image = cv2.imread("image.jpg", cv2.IMREAD_GRAYSCALE)
+
+# Apply Otsu's thresholding
+_, binary_image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+# Display the binary image
+cv2.imshow("Binary Image", binary_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+In this code, cv2.threshold is used with the cv2.THRESH_OTSU flag to apply Otsu's thresholding to the grayscale image.
+
+After applying Otsu's thresholding, the image is binarized, and you can proceed with character segmentation and recognition as part of the license plate recognition pipeline.
+
+Otsu's thresholding is effective in cases where you have varying illumination or background conditions and need an adaptive threshold to separate the characters from the background.
